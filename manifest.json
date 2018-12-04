@@ -1,0 +1,7 @@
+{
+    "short_name": "PWAサンプル",
+    "name": "PWAサンプルアプル",
+    "display": "standalone",
+    "start_url": "index.html",
+    "icons": []
+}
