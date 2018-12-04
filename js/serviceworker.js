@@ -1,7 +1,7 @@
 var CACHE_NAME = 'pwa-sample-cache';
 var urlsToCache = [
-    '/sample-pwa/',
-    '/sample-pwa/css/style.css',
+    '/koichi.github.io/',
+    '/koichi.github.io/css/style.css',
 ];
 
 // インストール処理
