@@ -1,7 +1,7 @@
 var CACHE_NAME = 'pwa-sample-cache';
 var urlsToCache = [
     '/',
-    'manifest.json',
+    '/manifest.json',
     '/css/style.css',
     '/js/count.js',
 ];
