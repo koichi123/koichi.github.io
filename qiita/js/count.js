@@ -21,9 +21,20 @@ openReq.onupgradeneeded = function (event) {
 
 //onupgradeneededの後に実行。更新がない場合はこれだけ実行
 openReq.onsuccess = function (event) {
-    count++
-
+    
     var db = event.target.result;
+    var trans_g = db.transaction(storeName, 'readonly');
+    var store_g = trans_g.objectStore(storeName);
+    var getReq_g = store_g.get(1);
+    
+    getReq_g.onsuccess = function (event) {
+        console.log('取得成功');
+        count = event.target.result.cnt;
+        alert(count);
+        count++
+    }
+
+    
     var trans = db.transaction(storeName, "readwrite");
     var store = trans.objectStore(storeName);
     var putReq = store.put({
@@ -31,18 +42,11 @@ openReq.onsuccess = function (event) {
         cnt: count
     });
 
-    var trans_g = db.transaction(storeName, 'readonly');
-    var store_g = trans_g.objectStore(storeName);
-    var getReq_g = store_g.get(1);
 
 
     putReq.onsuccess = function (event) {
         console.log('更新成功');
     }
 
-    getReq_g.onsuccess = function (event) {
-        console.log('取得成功');
-        alert(event.target.result.cnt);
-    }
 
 }
