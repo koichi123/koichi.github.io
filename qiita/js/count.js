@@ -28,25 +28,26 @@ openReq.onsuccess = function (event) {
     var getReq_g = store_g.get(1);
     
     getReq_g.onsuccess = function (event) {
-        console.log('取得成功');
-        count = event.target.result.cnt;
-        alert(count);
-        count++
+        if (typeof event.target.result === 'undefined') {
+            count = 0;
+        } else {
+            count = event.target.result.cnt;
+            alert(count);
+            count++;
+        }
+        
+        var trans = db.transaction(storeName, "readwrite");
+        var store = trans.objectStore(storeName);
+        var putReq = store.put({
+            id: 1,
+            cnt: count
+        });    
+
+        putReq.onsuccess = function (event) {
+            console.log('更新成功');
+        }
     }
 
-    
-    var trans = db.transaction(storeName, "readwrite");
-    var store = trans.objectStore(storeName);
-    var putReq = store.put({
-        id: 1,
-        cnt: count
-    });
-
-
-
-    putReq.onsuccess = function (event) {
-        console.log('更新成功');
-    }
 
 
 }
