@@ -31,8 +31,18 @@ openReq.onsuccess = function (event) {
         cnt: count
     });
 
+    var trans_g = db.transaction(storeName, 'readonly');
+    var store_g = trans_g.objectStore(storeName);
+    var getReq_g = store_g.get(1);
+
+
     putReq.onsuccess = function (event) {
-        alert(count);
         console.log('更新成功');
     }
+
+    getReq_g.onsuccess = function (event) {
+        console.log('取得成功');
+        alert(event.target.result);
+    }
+
 }
