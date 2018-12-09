@@ -42,7 +42,7 @@ openReq.onsuccess = function (event) {
 
     getReq_g.onsuccess = function (event) {
         console.log('取得成功');
-        alert(event.target.result);
+        alert(event.target.result.cnt);
     }
 
 }
