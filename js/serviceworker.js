@@ -18,6 +18,22 @@ self.addEventListener('install', function(event) {
     );
 });
 
+// アクティベート
+self.addEventListener("activate", function(event) {
+    event.waitUntil(
+      caches.keys().then(function(keyList) {
+        return Promise.all(
+          keyList.map(function(key) {
+            if (key !== CACHE_NAME) {
+              return caches.delete(key);
+            }
+          })
+        );
+      })
+    );
+    return self.clients.claim();
+});
+
 // リソースフェッチ時のキャッシュロード処理
 self.addEventListener('fetch', function(event) {
     event.respondWith(
