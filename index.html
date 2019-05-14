@@ -38,7 +38,12 @@
         }).catch(function(err) {
             console.log('ServiceWorker registration failed: ', err);
         });
-    }    
+    }
+    Notification.requestPermission(function(state) {
+        if (state === 'granted') {
+            alert("通知を許可しました！");
+        }
+    });
     </script>
     <script src="js/count.js"></script>
 </body>
