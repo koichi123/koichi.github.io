@@ -18,7 +18,7 @@ self.addEventListener('install', function(event) {
     );
 });
 
-// アクティベート
+// ServiceWorkerが有効になるときcacheNameがちがうキャッシュを削除する
 self.addEventListener("activate", function(event) {
     event.waitUntil(
       caches.keys().then(function(keyList) {
@@ -36,6 +36,12 @@ self.addEventListener("activate", function(event) {
 
 // リソースフェッチ時のキャッシュロード処理
 self.addEventListener('fetch', function(event) {
+    if (
+        event.request.cache === "only-if-cached" &&
+        event.request.mode !== "same-origin"
+    ) {
+        return;
+    }
     event.respondWith(
         caches
             .match(event.request)
