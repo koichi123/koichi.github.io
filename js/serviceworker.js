@@ -58,7 +58,7 @@ self.addEventListener("push", function(event) {
         event.waitUntil(self.registration.showNotification(
             "受信しました", {
                 body: "お知らせです。",
-                icon: "images/icon.jpg"
+                icon: "../images/icon.jpg"
         }).then(function(showEvent) {}, function(error) {
                 console.log(error);
             }
