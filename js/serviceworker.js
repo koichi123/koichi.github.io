@@ -2,8 +2,8 @@ var CACHE_NAME = 'pwa-sample-cache-v2';
 var urlsToCache = [
     'manifest.json',
     'css/style.css',
-    'js/serviceworker.js',
-    'js/count.js',
+    '/js/serviceworker.js',
+    './js/count.js',
 ];
 
 // インストール処理
