@@ -28,3 +28,26 @@ self.addEventListener('fetch', function(event) {
             })
     );
 });
+
+// プッシュ通知を受け取る
+self.addEventListener("push", function(event) {
+    console.log("Push Notification Recieved", event);
+    if (Notification.permission == "granted") {
+        event.waitUntil(self.registration.showNotification(
+            "受信しました", {
+                body: "お知らせです。",
+                icon: "images/icon.jpg"
+        }).then(function(showEvent) {}, function(error) {
+                console.log(error);
+            }
+        ));
+    }
+});
+
+// プッシュ通知をクリック
+self.addEventListener("notificationclick", function(event) {
+    event.notification.close();
+    event.waitUntil(
+        clients.openWindow("https://watanabe0601.github.io/sw.github.io/02/")
+    );
+});
