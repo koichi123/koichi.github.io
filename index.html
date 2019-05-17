@@ -46,6 +46,12 @@
       };
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
+        
+      // メッセージング オブジェクトの取得
+      const messaging = firebase.messaging();
+        
+      // アプリにウェブ認証情報を設定する
+      messaging.usePublicVapidKey("BG5jYiYDtrNtvBFi0Jvxq3oX8Cg9Jg0dSeCKwiDXMlgzJ7IEvDL8WTacdrJ1uNmMzk6NYFUQajWrqufLx1Vd7lU");
     </script>
     <script>
     if ('serviceWorker' in navigator) {
@@ -55,11 +61,22 @@
             console.log('ServiceWorker registration failed: ', err);
         });
     }
-    Notification.requestPermission(function(state) {
-        if (state === 'granted') {
-            console.log("通知を許可しました！");
-        }
+    // 通知を受信する権限を要求する
+    messaging.requestPermission().then(function() {
+        // 現在の登録トークンの取得
+        messaging.getToken().then(function(token) {
+            console.log(token);
+        }).catch(function(err) {
+            textInstanceIdToken.value = 'トークンの取得に失敗しました（' + err + '）。';
+        });
+    }).catch(function(err) {
+        textInstanceIdToken.value = '通知の許可が得られませんでした（' + err + '）。';
     });
+//     Notification.requestPermission(function(state) {
+//         if (state === 'granted') {
+//             console.log("通知を許可しました！");
+//         }
+//     });
     </script>
     <script src="js/count.js"></script>
 </body>
