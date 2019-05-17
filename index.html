@@ -60,15 +60,6 @@
         
       // アプリにウェブ認証情報を設定する
       messaging.usePublicVapidKey("BG5jYiYDtrNtvBFi0Jvxq3oX8Cg9Jg0dSeCKwiDXMlgzJ7IEvDL8WTacdrJ1uNmMzk6NYFUQajWrqufLx1Vd7lU");
-    </script>
-    <script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('js/serviceworker.js').then(function(registration) {
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }).catch(function(err) {
-            console.log('ServiceWorker registration failed: ', err);
-        });
-    }
     // 通知を受信する権限を要求する
     messaging.requestPermission().then(function() {
         // 現在の登録トークンの取得
@@ -80,6 +71,15 @@
     }).catch(function(err) {
         console.log('通知の許可が得られませんでした（' + err + '）。');
     });
+    </script>
+    <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('js/serviceworker.js').then(function(registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }).catch(function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+        });
+    }
 //     Notification.requestPermission(function(state) {
 //         if (state === 'granted') {
 //             console.log("通知を許可しました！");
