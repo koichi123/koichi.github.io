@@ -59,26 +59,34 @@
         const messaging = firebase.messaging();
         // アプリにウェブ認証情報を設定する
         messaging.usePublicVapidKey("BG5jYiYDtrNtvBFi0Jvxq3oX8Cg9Jg0dSeCKwiDXMlgzJ7IEvDL8WTacdrJ1uNmMzk6NYFUQajWrqufLx1Vd7lU");
-        // 通知を受信する権限を要求する
-        messaging.requestPermission().then(function() {
-            // 現在の登録トークンの取得
-            messaging.getToken().then(function(token) {
-                // if (currentToken) {
-                //     sendTokenToServer(currentToken);
-                //     updateUIForPushEnabled(currentToken);
-                // } else {
-                //     // Show permission request.
-                //     console.log('No Instance ID token available. Request permission to generate one.');
-                //     // Show permission UI.
-                //     updateUIForPushPermissionRequired();
-                //     setTokenSentToServer(false);
-                // }
-                console.log(token);
+
+         /* 2. ServiceWorkerを定義する */
+        navigator.serviceWorker.register('./firebase-messaging-sw.js')
+            .then((registration) => {
+            messaging.useServiceWorker(registration);
+
+            // 通知を受信する権限を要求する
+            messaging.requestPermission().then(function() {
+                // 現在の登録トークンの取得
+                messaging.getToken().then(function(token) {
+                    // if (currentToken) {
+                    //     sendTokenToServer(currentToken);
+                    //     updateUIForPushEnabled(currentToken);
+                    // } else {
+                    //     // Show permission request.
+                    //     console.log('No Instance ID token available. Request permission to generate one.');
+                    //     // Show permission UI.
+                    //     updateUIForPushPermissionRequired();
+                    //     setTokenSentToServer(false);
+                    // }
+                    console.log(token);
+                }).catch(function(err) {
+                    console.log('トークンの取得に失敗しました（' + err + '）。');
+                });
             }).catch(function(err) {
-                console.log('トークンの取得に失敗しました（' + err + '）。');
+                console.log('通知の許可が得られませんでした（' + err + '）。');
             });
-        }).catch(function(err) {
-            console.log('通知の許可が得られませんでした（' + err + '）。');
+
         });
 
         // 初期化
