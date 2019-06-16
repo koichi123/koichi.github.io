@@ -35,7 +35,7 @@ openReq.onsuccess = function (event) {
             alert(count);
             count++;
         }
-        
+
         var trans = db.transaction(storeName, "readwrite");
         var store = trans.objectStore(storeName);
         var putReq = store.put({
@@ -47,7 +47,4 @@ openReq.onsuccess = function (event) {
             console.log('更新成功');
         }
     }
-
-
-
 }
