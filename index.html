@@ -24,12 +24,14 @@
     <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
     <script>
       var OneSignal = window.OneSignal || [];
-      OneSignal.push(function() {
+      OneSignal.push(function () {
+        OneSignal.SERVICE_WORKER_PARAM = { scope: '/koichi.github.io/' };
+        OneSignal.SERVICE_WORKER_PATH = 'koichi.github.io/OneSignalSDKWorker.js'
+        OneSignal.SERVICE_WORKER_UPDATER_PATH = 'koichi.github.io/OneSignalSDKUpdaterWorker.js'
         OneSignal.init({
-          appId: "c00df44b-e90f-49d2-af8b-248e27009f0a",
-          path: "https://koichi123.github.io/koichi.github.io/"
+          appId: "c00df44b-e90f-49d2-af8b-248e27009f0a"
         });
-      });
+    });
     </script>
 </head>
 <body>
